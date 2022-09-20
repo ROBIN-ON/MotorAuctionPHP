@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-<link href="mycss.css">
+<link rel="stylesheet" href="mycss.css">
 <style>
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -148,7 +148,14 @@ body {
 
 <body>
 
+
+<h1 class="head">
+			
+				<h1>Northampton News</h1>
+			
+</h1>
 <div class="navbar">
+
   <a href="#home">Home</a>
   <a href="#news">News</a>
   <div class="dropdown">
@@ -187,7 +194,7 @@ body {
   </div> 
 </div>
 
-<center><h1 style="font-size:50px; color:Red;"> All Categories  </h1></center> 
+<center><h5 style="font-size:50px; color:Red;"> All Categories with News </h5></center> 
 <hr>
 <div>
 
