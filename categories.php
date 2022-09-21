@@ -17,16 +17,7 @@
     <!-- home css above -->
    
 
-    <!-- <link href="css/media_query.css" rel="stylesheet" type="text/css"/>
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>  
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link href="css/animate.css" rel="stylesheet" type="text/css"/>
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet"> 
-    <link href="css/owl.carousel.css" rel="stylesheet" type="text/css"/>
-    <link href="css/owl.theme.default.css" rel="stylesheet" type="text/css"/> -->
-<!-- </head>
-<body> -->
+<body> 
 <style>
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -341,7 +332,7 @@ body {
 <div class="container-fluid pb-4 pt-5">
     <div class="container animate-box">
         <div class="spin">
-            <div class="spin" >Trending News</div>
+            <div class="spinner" >Trending News</div>
         </div>
         <div class="owl-carousel owl-theme" id="slider2">
         <?php 
@@ -368,7 +359,7 @@ body {
                   
             <div class="item px-2">
                 <div class="fh5co_hover_news_img">
-                    <div class="fh5co_news_img"><img src="admin/images/blog/<?php echo $view_post_image_popular;?>" alt="<?php echo $view_post_image_popular;?>"/></div>
+                    
                     <div>
                     <a href="single.php?postid=<?=$view_post_id_popular ?>"style="color: #000000"><?php echo $view_post_title_popular;?> <span class=""></span></a>
                         <div class="c_g"><i class="fa fa-clock-o"></i> <?php echo $view_post_date_popular; ?></div>
