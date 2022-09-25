@@ -172,17 +172,27 @@ body {
     <div class="dropdown-content">
     <?php 
                                     $sql_select_category = "SELECT * FROM categories ORDER BY cat_priority asc";
-                                    $result_sql_select_category = mysqli_query($dbconnection, $sql_select_category);
-                                    $counter_category_post=0;
-                                    while ($rowcategory = mysqli_fetch_assoc($result_sql_select_category))
+                                    //
+                                    $stmt = $pdo->prepare($sql_select_category);
+                                    $stmt->execute();
+                                  $rowcategory = $stmt->fetchAll();
+
+                                    // $result_sql_select_category = mysqli_query($dbconnection, $sql_select_category);
+                                    // $counter_category_post=0;
+                                    // while ($rowcategory = mysqli_fetch_assoc($result_sql_select_category))
                                     {
 
                                     $view_category_id = $rowcategory['id'];
                                     $view_cat_title = $rowcategory['cat_title'];
 
                                     $sql_select_post_for_category = "SELECT * FROM posts WHERE post_category = {$view_category_id}";
-                                    $result_sql_select_post_for_category = mysqli_query($dbconnection, $sql_select_post_for_category);
-                                    while ($rowpost_for_category = mysqli_fetch_assoc($result_sql_select_post_for_category))
+                                    //
+                                    $stmt = $pdo->prepare($sql_select_post_for_category);
+                                    $stmt->execute([$view_category_id]);
+                                    $rowpost_for_category = $stmt->fetchAll();
+
+                                    // $result_sql_select_post_for_category = mysqli_query($dbconnection, $sql_select_post_for_category);
+                                    // while ($rowpost_for_category = mysqli_fetch_assoc($result_sql_select_post_for_category))
                                     {
                                                     
                                     $counter_category_post++;
@@ -220,8 +230,13 @@ body {
 
           $selected_category_page= $_GET['catid'];
           $sql_select_category_page = "SELECT * FROM categories WHERE id = {$selected_category_page}";
-          $result_sql_select_category_page = mysqli_query($dbconnection, $sql_select_category_page);
-                while ($rowcategorypage = mysqli_fetch_assoc($result_sql_select_category_page))
+          //
+          $stmt = $pdo->prepare($sql_select_category_page);
+          $stmt->execute([$selected_category_page]);
+          $rowcategorypage = $stmt->fetchAll();
+
+          // $result_sql_select_category_page = mysqli_query($dbconnection, $sql_select_category_page);
+          //       while ($rowcategorypage = mysqli_fetch_assoc($result_sql_select_category_page))
                 {
                   $view_category_id = $rowcategorypage['id'];
                   $view_cat_title = $rowcategorypage['cat_title'];
@@ -236,9 +251,13 @@ body {
                 </div>
                 <?php 
                 $sql_select_post = "SELECT * FROM posts WHERE post_status = 1 AND post_category = {$selected_category_page} ORDER BY id desc LIMIT {$start} ,{$no_posts_per_page}";
-                $result_sql_select_post = mysqli_query($dbconnection, $sql_select_post);
-                $post_counter_for_category = 0;
-                while ($rowpost = mysqli_fetch_assoc($result_sql_select_post))
+                //
+                $stmt = $pdo->prepare($sql_select_post);
+                $stmt->execute();
+                $rowpost = $stmt->fetchAll();
+                // $result_sql_select_post = mysqli_query($dbconnection, $sql_select_post);
+                // $post_counter_for_category = 0;
+                // while ($rowpost = mysqli_fetch_assoc($result_sql_select_post))
                 {
                   $post_counter_for_category++;
                   $view_post_id = $rowpost['id'];
@@ -255,8 +274,12 @@ body {
                   $view_post_priority = $rowpost['post_priority'];
 
                   $sql_select_users_article = "SELECT * FROM users WHERE id={$view_post_autor}";
-                  $result_sql_select_users_article = mysqli_query($dbconnection, $sql_select_users_article);
-                  while ($rowusers_article = mysqli_fetch_assoc($result_sql_select_users_article))
+                  //
+                  $stmt = $pdo->prepare($sql_select_users_article);
+                  $stmt->execute([$view_post_autor]);
+                  $rowusers_article = $stmt->fetchAll();
+                  // $result_sql_select_users_article = mysqli_query($dbconnection, $sql_select_users_article);
+                  // while ($rowusers_article = mysqli_fetch_assoc($result_sql_select_users_article))
                   {
                     $view_users_id = $rowusers_article['id'];
                     $view_users_name = $rowusers_article['name'];
@@ -291,18 +314,22 @@ body {
                  
                 
            
-            <div  data-animate-effect="fadeInRight">
+            <div >
                 <div>
-                    <div >Category</div>
+                    <div class="spin" >Category</div>
                 </div>
               
                 
                 <?php 
                       $sql_select_category_wiget = "SELECT * FROM categories";
-                      $result_sql_select_category_wiget = mysqli_query($dbconnection, $sql_select_category_wiget);
+                      //
+                      $stmt = $pdo->prepare($sql_select_category_wiget);
+                      $stmt->execute();
+                      $rowcategory_wiget = $stmt->fetchAll();
+                      // $result_sql_select_category_wiget = mysqli_query($dbconnection, $sql_select_category_wiget);
 
-                       $category_counter= 0;
-                        while ($rowcategory_wiget= mysqli_fetch_assoc( $result_sql_select_category_wiget)) 
+                      //  $category_counter= 0;
+                      //   while ($rowcategory_wiget= mysqli_fetch_assoc( $result_sql_select_category_wiget)) 
                        {
                         $category_counter++;
                         $id_category_wiget = $rowcategory_wiget['id'];
@@ -329,17 +356,21 @@ body {
  
     </div>
 </div>
-<div class="container-fluid pb-4 pt-5">
-    <div class="container animate-box">
+
         <div class="spin">
-            <div class="spinner" >Trending News</div>
+            <div class="spinner" >Trending News Click To view The News;</div>
         </div>
-        <div class="owl-carousel owl-theme" id="slider2">
+        <div >
         <?php 
                 $counter_popular= 0;
                 $sql_select_post_popular = "SELECT * FROM posts WHERE post_status = 1 ORDER BY post_visit_counter DESC LIMIT 0,5";
-                $result_sql_select_post_popular = mysqli_query($dbconnection, $sql_select_post_popular);
-                while ($rowpost_popular = mysqli_fetch_assoc($result_sql_select_post_popular))
+                //
+
+                $stmt = $pdo->prepare($sql_select_post_popular);
+                $stmt->execute();
+                $rowpost_popular = $stmt->fetchAll();
+                // $result_sql_select_post_popular = mysqli_query($dbconnection, $sql_select_post_popular);
+                // while ($rowpost_popular = mysqli_fetch_assoc($result_sql_select_post_popular))
                 {
                   $view_post_id_popular = $rowpost_popular['id'];
                   $view_post_category_popular = $rowpost_popular['post_category'];
@@ -375,8 +406,7 @@ body {
             
             </div>
         </div>
-    </div>
-</div>
+
 <footer class="foot">
 			&copy; Northampton News 2017 <a href="google.com"> Northampton News</a>
 </footer>

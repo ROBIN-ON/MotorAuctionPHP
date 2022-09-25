@@ -10,14 +10,24 @@
 		$password= $_POST['password'];
 
 		    $sql_select_users_login = "SELECT * FROM users WHERE username = '{$username}'";
-        $result_sql_select_users_login = mysqli_query($dbconnection, $sql_select_users_login);
+        //
+
+        $stmt = $pdo->prepare($sql_select_users_login);
+        // $stmt->execute([$desc]);
+       
+
+        // $result_sql_select_users_login = mysqli_query($dbconnection, $sql_select_users_login);
 
         if (!$result_sql_select_users_login)
             {
-              die("Error description:" . mysqli_error());
+              public PDO::errorInfo():
             }
+//
 
-        while ($row_user_login = mysqli_fetch_assoc( $result_sql_select_users_login))
+            $row_user_login = $stmt->fetchAll();
+
+
+        // while ($row_user_login = mysqli_fetch_assoc( $result_sql_select_users_login))
               {
                $id_user_login = $row_user_login['id'];
                $user_login_name = $row_user_login['name'];

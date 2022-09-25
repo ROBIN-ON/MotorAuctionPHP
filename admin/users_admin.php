@@ -42,15 +42,28 @@
                 switch ($group_options) {
                   case '1':
                     $sql_group_publish = "UPDATE users SET status= '{$group_options}' WHERE id={$checked_Box_User_Id}";
-                     $result_sql_group_publish= mysqli_query($dbconnection, $sql_group_publish);
+
+                    //
+
+                    $stmt = $pdo->prepare($sql_group_publish);
+                    $stmt->execute([$checked_Box_User_Id]);
+                   
+                    //  $result_sql_group_publish= mysqli_query($dbconnection, $sql_group_publish);
                     break;
                   case '0':
                     $sql_group_unpublish = "UPDATE users SET status= '{$group_options}' WHERE id={$checked_Box_User_Id}";
-                     $result_sql_group_unpublish= mysqli_query($dbconnection, $sql_group_unpublish);
+                    //
+                    $stmt = $pdo->prepare($sql_group_unpublish);
+                    $stmt->execute([$checked_Box_User_Id]);
+                    //  $result_sql_group_unpublish= mysqli_query($dbconnection, $sql_group_unpublish);
                     break;
                   case 'delete':
                   $sql_group_delete = "DELETE FROM users WHERE id ={$checked_Box_User_Id}";
-                  $result_sql_group_delete = mysqli_query($dbconnection, $sql_group_delete);
+                  //
+
+                  $stmt = $pdo->prepare($sql_group_delete);
+                  $stmt->execute([$checked_Box_User_Id]);
+                  // $result_sql_group_delete = mysqli_query($dbconnection, $sql_group_delete);
                   header("Location: users_admin.php");
                     # code...
                     break;
@@ -129,8 +142,14 @@
             </tr>
             <?php 
                 $sql_select_users = "SELECT * FROM users ORDER BY id desc";
-                $result_sql_select_users = mysqli_query($dbconnection, $sql_select_users);
-                while ($rowusers = mysqli_fetch_assoc($result_sql_select_users))
+                //
+                $stmt = $pdo->prepare($sql_select_users);
+                $stmt->execute([$desc]);
+                $rowusers = $stmt->fetchAll();
+
+
+                // $result_sql_select_users = mysqli_query($dbconnection, $sql_select_users);
+                // while ($rowusers = mysqli_fetch_assoc($result_sql_select_users))
                 {
                   $view_users_id = $rowusers['id'];
                   $view_users_name = $rowusers['name'];

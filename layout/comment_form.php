@@ -6,17 +6,34 @@
         $add_comm_autor=$_POST['comm_autor'];
         $add_comm_email=$_POST['comm_email'];
         $add_comm_text=$_POST['comm_text'];
+        //
 
-        $add_comm_autor = mysqli_real_escape_string($dbconnection, $add_comm_autor);
-        $add_comm_email = mysqli_real_escape_string($dbconnection, $add_comm_email);
-        $add_comm_text = mysqli_real_escape_string($dbconnection, $add_comm_text);
+
+        $stmt = $pdo->prepare($add_comm_autor);
+     
+
+      $stmt = $pdo->prepare($add_comm_email);
+  
+
+    $stmt = $pdo->prepare($add_comm_text);
+
+
+        // $add_comm_autor = mysqli_real_escape_string($dbconnection, $add_comm_autor);
+        // $add_comm_email = mysqli_real_escape_string($dbconnection, $add_comm_email);
+        // $add_comm_text = mysqli_real_escape_string($dbconnection, $add_comm_text);
 
         $sql_add_comment = "INSERT INTO comments(postid, comm_autor, comm_email, comm_text, comm_status,comm_date) VALUES('$add_comm_posid', '$add_comm_autor', '$add_comm_email', '$add_comm_text', '0', '$current_date' )";
-        $result_sql_add_comment= mysqli_query($dbconnection, $sql_add_comment);
+        //
+
+
+        $stmt = $pdo->prepare($sql_add_comment);
+      
+        // $result_sql_add_comment= mysqli_query($dbconnection, $sql_add_comment);
+
         echo "testiram";
         if (!$sql_add_comment)
                 {
-                  die("Error description:" . mysqli_error());
+                  public PDO::errorInfo():
                 }
                 else
                 {

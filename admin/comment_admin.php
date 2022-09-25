@@ -41,15 +41,30 @@
                 switch ($group_options) {
                   case '1':
                     $sql_group_publish = "UPDATE comments SET comm_status= '{$group_options}' WHERE id={$checked_Box_Comment_Id}";
-                     $result_sql_group_publish= mysqli_query($dbconnection, $sql_group_publish);
+                    //
+
+
+                    $stmt = $pdo->prepare($sql_group_publish);
+
+
+                    //  $result_sql_group_publish= mysqli_query($dbconnection, $sql_group_publish);
                     break;
                   case '0':
                     $sql_group_unpublish = "UPDATE comments SET comm_status= '{$group_options}' WHERE id={$checked_Box_Comment_Id}";
-                     $result_sql_group_unpublish= mysqli_query($dbconnection, $sql_group_unpublish);
+                    // 
+                    $stmt = $pdo->prepare($sql_group_publish);
+                    $stmt->execute([$checked_Box_Comment_Id]);
+
+                    //  $result_sql_group_unpublish= mysqli_query($dbconnection, $sql_group_unpublish);
                     break;
                   case 'delete':
                   $sql_group_delete = "DELETE FROM comments WHERE id ={$checked_Box_Comment_Id}";
-                  $result_sql_group_delete = mysqli_query($dbconnection, $sql_group_delete);
+                  //
+
+
+                  $stmt = $pdo->prepare($sql_group_delete);
+
+                  // $result_sql_group_delete = mysqli_query($dbconnection, $sql_group_delete);
                   header("Location: comment_admin.php");
                     # code...
                     break;
@@ -126,8 +141,15 @@
             </tr>
             <?php 
                 $sql_select_comment = "SELECT * FROM comments ORDER BY comm_status asc";
-                $result_sql_select_comment = mysqli_query($dbconnection, $sql_select_comment);
-                while ($rowcomment = mysqli_fetch_assoc($result_sql_select_comment))
+                //
+
+
+                $stmt = $pdo->prepare($sql_select_comment);
+                $stmt->execute([$id]);
+                $rowcomment = $stmt->fetchAll();
+                
+                // $result_sql_select_comment = mysqli_query($dbconnection, $sql_select_comment);
+                // while ($rowcomment = mysqli_fetch_assoc($result_sql_select_comment))
                 {
                   $view_comm_id = $rowcomment['id'];
                   $view_comm_postid = $rowcomment['postid'];
@@ -146,8 +168,14 @@
               <td style="text-align: center;"><?php echo $view_comm_email; ?></td>
               <?php
                   $sql_select_post = "SELECT * FROM posts WHERE id = {$view_comm_postid}";
-                  $result_sql_select_post = mysqli_query($dbconnection, $sql_select_post);
-                  while ($rowpost = mysqli_fetch_assoc($result_sql_select_post))
+                  //
+                  $stmt = $pdo->prepare($sql_select_post);
+                  $stmt->execute([$view_comm_postid]);
+                  $rowpost = $stmt->fetchAll();
+
+
+                  // $result_sql_select_post = mysqli_query($dbconnection, $sql_select_post);
+                  // while ($rowpost = mysqli_fetch_assoc($result_sql_select_post))
                   {
                     $view_post_id = $rowpost['id'];
                     $view_post_title = $rowpost['post_title'];

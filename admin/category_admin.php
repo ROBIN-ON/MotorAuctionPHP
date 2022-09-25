@@ -42,15 +42,27 @@
                 switch ($group_options) {
                   case '1':
                     $sql_group_publish = "UPDATE categories SET cat_status= '{$group_options}' WHERE id={$checked_Box_Category_Id}";
-                     $result_sql_group_publish= mysqli_query($dbconnection, $sql_group_publish);
+                    //
+
+                    $stmt = $pdo->prepare($sql_group_publish);
+                    $stmt->execute([$checked_Box_Category_Id]);
+
+                    //  $result_sql_group_publish= mysqli_query($dbconnection, $sql_group_publish); -->>
                     break;
                   case '0':
                     $sql_group_unpublish = "UPDATE categories SET cat_status= '{$group_options}' WHERE id={$checked_Box_Category_Id}";
-                     $result_sql_group_unpublish= mysqli_query($dbconnection, $sql_group_unpublish);
+                    //
+
+                    $stmt = $pdo->prepare($sql_group_unpublish);
+                    //  $result_sql_group_unpublish= mysqli_query($dbconnection, $sql_group_unpublish);
                     break;
                   case 'delete':
                   $sql_group_delete = "DELETE FROM categories WHERE id ={$checked_Box_Category_Id}";
-                  $result_sql_group_delete = mysqli_query($dbconnection, $sql_group_delete);
+                  //
+                  $stmt = $pdo->prepare($query);
+                  $stmt->execute([$checked_Box_Category_Id]);
+
+                  // $result_sql_group_delete = mysqli_query($dbconnection, $sql_group_delete); -->>
                   header("Location: category_admin.php");
                     # code...
                     break;
@@ -129,8 +141,14 @@
             <?php 
                 $counter= 0;
                 $sql_select_category = "SELECT * FROM categories ORDER BY id desc";
-                $result_sql_select_category = mysqli_query($dbconnection, $sql_select_category);
-                while ($rowcategory = mysqli_fetch_assoc($result_sql_select_category))
+                //
+
+
+                $stmt = $pdo->prepare($sql_select_category);
+                $stmt->execute([$desc]);
+                while($rowcategory = $stmt->fetchAll();)
+                // $result_sql_select_category = mysqli_query($dbconnection, $sql_select_category);
+                // while ($rowcategory = mysqli_fetch_assoc($result_sql_select_category)) -->>
                 {
                   $view_category_id = $rowcategory['id'];
                   $view_cat_title = $rowcategory['cat_title'];
@@ -153,8 +171,14 @@
               <?php 
                 $posts_category_counter= 0;
                 $sql_select_category_posts = "SELECT * FROM posts WHERE post_category={$view_category_id}";
-                $result_sql_selectcategory_posts = mysqli_query($dbconnection, $sql_select_category_posts);
-                while ($rowcategorypost = mysqli_fetch_assoc($result_sql_selectcategory_posts))
+                //
+
+
+                $stmt = $pdo->prepare($sql_select_category_posts);
+                $stmt->execute();
+               $rowcategorypost = $stmt->fetchAll();
+                // $result_sql_selectcategory_posts = mysqli_query($dbconnection, $sql_select_category_posts);
+                // while ($rowcategorypost = mysqli_fetch_assoc($result_sql_selectcategory_posts))--??>>
                 {
                   $posts_category_counter++;
                 } 

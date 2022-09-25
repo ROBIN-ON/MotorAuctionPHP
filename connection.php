@@ -1,5 +1,5 @@
 <?php 
-	
+
 $nameOfHost="db";
 $database_name="assignment1";
 $username="root";
@@ -14,4 +14,5 @@ catch(PDOException $error)
 {
     echo "DB Failed Connection!" .$error->getMessage();
 }
- ?>
+
+?>

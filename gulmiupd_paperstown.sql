@@ -12,10 +12,6 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `paperstown`
@@ -124,10 +120,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`, `gender`, `image`, `code`, `status`, `type`) VALUES
-(33, 'Adarsh Rajouria', 'Adarsh', 'adarshraj640@gmail.com', 'd9ff92957ca84404788296f8a1acaff0', '1', '168062392_486763259176643_9098352848265028319_n.jpg', '', '1', '1'),
-(34, 'Siwan Chaudhary', 'Siwan Chaudhary', 'Cwanassum550@gmail.com', '64a37c5e4c0420b2de94095e38bbab7a', '2', '179025604_2825986940957215_5586462527611154492_n.jpg', '', '1', '1'),
-(36, 'Subash B.k', 'Subash', 'sbkcools677@gmail.com', '051f6a1206f0ea642259e2be23db14b7', '2', '167483881_2909652399357382_3888145905995548658_n.jpg', '', '1', '1'),
-(37, 'Shreesh Chaudhary', 'Shreesh', 'chaudharyshirish60@gmail.com', '1943e52f4e606a6285f8a9072a9a9b65', '2', '144896429_193658205830468_3981291389392255177_n.jpg', '', '1', '1');
+(33, 'Robin Tondon', 'Robin', 'adarshraj640@gmail.com', 'd9ff92957ca84404788296f8a1acaff0', '1', '168062392_486763259176643_9098352848265028319_n.jpg', '', '1', '1'),
 
 --
 -- Indexes for dumped tables

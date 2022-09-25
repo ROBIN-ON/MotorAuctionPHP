@@ -149,6 +149,8 @@ body {
 <body>
 
 
+
+
 <h1 class="head">
 			
 				<h1>Northampton News</h1>
@@ -156,7 +158,7 @@ body {
 </h1>
 <div class="navbar">
 
-  <a href="#home">Home</a>
+  <a href="index.php">Home</a>
   <a href="#news">News</a>
   <div class="dropdown">
     <button class="dropbtn">categories 
@@ -165,17 +167,27 @@ body {
     <div class="dropdown-content">
     <?php 
                                     $sql_select_category = "SELECT * FROM categories ORDER BY cat_priority asc";
-                                    $result_sql_select_category = mysqli_query($dbconnection, $sql_select_category);
-                                    $counter_category_post=0;
-                                    while ($rowcategory = mysqli_fetch_assoc($result_sql_select_category))
+
+                                    $stmt = $pdo->prepare($sql_select_category);
+                                    $stmt->execute([$asc]);
+                                    $rowcategory = $stmt->fetchAll(); 
+
+                                    // $result_sql_select_category = mysqli_query($dbconnection, $sql_select_category);
+                                    // $counter_category_post=0;
+                                    // while ($rowcategory = mysqli_fetch_assoc($result_sql_select_category))
                                     {
 
                                     $view_category_id = $rowcategory['id'];
                                     $view_cat_title = $rowcategory['cat_title'];
 
                                     $sql_select_post_for_category = "SELECT * FROM posts WHERE post_category = {$view_category_id}";
-                                    $result_sql_select_post_for_category = mysqli_query($dbconnection, $sql_select_post_for_category);
-                                    while ($rowpost_for_category = mysqli_fetch_assoc($result_sql_select_post_for_category))
+                                    //
+
+                                    $stmt = $pdo->prepare($query);
+                                    $stmt->execute([$view_category_id]);
+                                    $rowpost_for_category = $stmt->fetchAll();
+                                    // $result_sql_select_post_for_category = mysqli_query($dbconnection, $sql_select_post_for_category);
+                                    // while ($rowpost_for_category = mysqli_fetch_assoc($result_sql_select_post_for_category))
                                     {
                                                     
                                     $counter_category_post++;
@@ -194,7 +206,7 @@ body {
   </div> 
 </div>
 
-<center><h5 style="font-size:50px; color:Red;"> All Categories with News </h5></center> 
+<center><h5 style="font-size:50px; color:Red;"> Breaking News </h5></center> 
 <hr>
 <div>
 
@@ -208,8 +220,12 @@ body {
     <?php 
                 $counter_popular= 0;
                 $sql_select_post_popular = "SELECT * FROM posts WHERE post_status = 1 ORDER BY post_visit_counter DESC LIMIT 0,5";
-                $result_sql_select_post_popular = mysqli_query($dbconnection, $sql_select_post_popular);
-                while ($rowpost_popular = mysqli_fetch_assoc($result_sql_select_post_popular))
+                //
+                $stmt = $pdo->prepare($sql_select_post_popular);
+                $stmt->execute();
+                $rowpost_popular = $stmt->fetchAll();
+                // $result_sql_select_post_popular = mysqli_query($dbconnection, $sql_select_post_popular);
+                // while ($rowpost_popular = mysqli_fetch_assoc($result_sql_select_post_popular))
                 {
                   $view_post_id_popular = $rowpost_popular['id'];
                   $view_post_category_popular = $rowpost_popular['post_category'];
@@ -255,7 +271,7 @@ body {
 </section>
 
 <footer class="foot">
-			&copy; Northampton News 2017 <a href="google.com"> Northampton News</a>
+			&copy; Northampton News 2017 <a href="https://www.northampton.ac.uk/"> Northampton News</a>
 </footer>
 
 <style>

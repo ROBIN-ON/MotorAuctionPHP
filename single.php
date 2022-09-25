@@ -9,8 +9,12 @@ ob_start();
         $edit_post_id_visit=$_GET['postid'];
 
         $sql_select_post_visit = "SELECT * FROM posts WHERE id={$edit_post_id_visit}";
-                $result_sql_select_post_visit = mysqli_query($dbconnection, $sql_select_post_visit);
-                while ($rowpost_visit = mysqli_fetch_assoc($result_sql_select_post_visit))
+                 //
+                 $stmt = $pdo->prepare($sql_select_post_visit);
+                 $stmt->execute([$edit_post_id_visit]);
+                 $rowpost_visit = $stmt->fetchAll();
+                // $result_sql_select_post_visit = mysqli_query($dbconnection, $sql_select_post_visit);
+                // while ($rowpost_visit = mysqli_fetch_assoc($result_sql_select_post_visit))
                 {
                   
                   $view_post_visit_counter_all_visits = $rowpost_visit['post_visit_counter'];
@@ -22,7 +26,8 @@ ob_start();
         $result_sql_edit_post_visit= mysqli_query($dbconnection, $sql_edit_post_visit);
         if (!$result_sql_edit_post_visit)
                 {
-                   die("Error description:" . mysqli_error());
+                   public PDO::errorInfo():
+                  //  die("Error description:" . mysqli_error());
                 }
                 else
                 {
@@ -52,8 +57,12 @@ ob_start();
         $selected_post_page= $_GET['postid'];
 
                 $sql_select_post_page = "SELECT * FROM posts WHERE id={$selected_post_page}";
-                $result_sql_select_post_page = mysqli_query($dbconnection, $sql_select_post_page);
-                while ($rowpostpage = mysqli_fetch_assoc($result_sql_select_post_page))
+                //
+                $stmt = $pdo->prepare($sql_select_post_page);
+                $stmt->execute([$selected_post_page]);
+                $rowpostpage = $stmt->fetchAll();
+                // $result_sql_select_post_page = mysqli_query($dbconnection, $sql_select_post_page);
+                // while ($rowpostpage = mysqli_fetch_assoc($result_sql_select_post_page))
                 {
                   $view_post_id = $rowpostpage['id'];
                   $view_post_category = $rowpostpage['post_category'];
@@ -77,8 +86,12 @@ ob_start();
  <!-- Author -->
  <?php 
                 $sql_select_users_article = "SELECT * FROM users WHERE id={$view_post_autor}";
-                $result_sql_select_users_article = mysqli_query($dbconnection, $sql_select_users_article);
-                while ($rowusers_article = mysqli_fetch_assoc($result_sql_select_users_article))
+                //
+                $stmt = $pdo->prepare($sql_select_users_article);
+                $stmt->execute([$view_post_autor]);
+                $rowusers_article = $stmt->fetchAll();
+                // $result_sql_select_users_article = mysqli_query($dbconnection, $sql_select_users_article);
+                // while ($rowusers_article = mysqli_fetch_assoc($result_sql_select_users_article))
                 {
                   $view_users_id = $rowusers_article['id'];
                   $view_users_name = $rowusers_article['name'];
@@ -114,10 +127,14 @@ ob_start();
                 <div class="fh5co_tags_all">
                 <?php 
                       $sql_select_category_wiget = "SELECT * FROM categories";
-                      $result_sql_select_category_wiget = mysqli_query($dbconnection, $sql_select_category_wiget);
+                      //
+                      $stmt = $pdo->prepare($sql_select_category_wiget);
+                      $stmt->execute();
+                     $rowcategory_wiget = $stmt->fetchAll();
+                      // $result_sql_select_category_wiget = mysqli_query($dbconnection, $sql_select_category_wiget);
 
-                       $category_counter= 0;
-                        while ($rowcategory_wiget= mysqli_fetch_assoc( $result_sql_select_category_wiget)) 
+                      //  $category_counter= 0;
+                      //   while ($rowcategory_wiget= mysqli_fetch_assoc( $result_sql_select_category_wiget)) 
                        {
                         $category_counter++;
                         $id_category_wiget = $rowcategory_wiget['id'];
